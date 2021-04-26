@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">StockTrading</string>
+    <string name="strAppDescription">Buy and Sell Stocks</string>
+    <string name="ltp">ltp</string>
+    <string name="change">change</string>
+    <string name="bse">BSE</string>
+    <string name="changePer">change per</string>
+    <string name="buy"><font color='blue'>BUY</font></string>
+    <string name="sell"><font color='red'>SELL</font></string>
+    <string name="user_profile_picture">User Profile Picture</string>
+    <string name="user">USER</string>
+    <string name="success">Successfully Applied</string>
+    <string name="blank">Quantity Should not be blank</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
