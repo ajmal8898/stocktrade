@@ -52,25 +52,18 @@ public class Tradefragement extends Fragment {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
 
-                TradeActivityDatas listinformation = new TradeActivityDatas(String.valueOf(cursor.getString(4)), String.valueOf(cursor.getString(3)), String.valueOf(cursor.getString(2)), String.valueOf(cursor.getString(1)),String.valueOf(cursor.getString(5)),String.valueOf(cursor.getString(6)),String.valueOf(cursor.getString(7)));
-                listinformation.setCompany_name(cursor.getString(1));
-                listinformation.setChange_percent(cursor.getString(3));
-                listinformation.setPrice(cursor.getString(2));
-                listinformation.setLtp(cursor.getString(4));
-                listinformation.setSymbol(cursor.getString(5));
-                listinformation.setQuantity(cursor.getString(6));
-                 listinformation.setStatus(cursor.getString(7));
-                list.add(listinformation);
+                TradeActivityDatas tradeActivityDatas = new TradeActivityDatas(String.valueOf(cursor.getString(4)), String.valueOf(cursor.getString(3)), String.valueOf(cursor.getString(2)), String.valueOf(cursor.getString(1)),String.valueOf(cursor.getString(5)),String.valueOf(cursor.getString(6)),String.valueOf(cursor.getString(7)));
+                list.add(tradeActivityDatas);
                 cursor.moveToNext();
             }
         }
     }
     public void callRecycleView(View view, Context context, ArrayList<TradeActivityDatas> list)
     {
-        RecyclerView recyclerView = view.findViewById(R.id.recycleSecond);
-        TradeActivityRecycleAdapter recycleItemSecond = new TradeActivityRecycleAdapter(context,list);
+        RecyclerView recyclerView = view.findViewById(R.id.traderecycle);
+        TradeActivityRecycleAdapter tradeActivityRecycleAdapter = new TradeActivityRecycleAdapter(context,list);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(recycleItemSecond);
+        recyclerView.setAdapter(tradeActivityRecycleAdapter);
 
 
     }

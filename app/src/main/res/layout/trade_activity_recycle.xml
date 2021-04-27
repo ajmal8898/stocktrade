@@ -110,7 +110,7 @@
             android:layout_marginTop="120dp"
 
 
-            android:background="#CDDC39"
+            android:background="#FFEB3B"
             android:gravity="center"
             android:textAlignment="center"
             android:textAllCaps="true"

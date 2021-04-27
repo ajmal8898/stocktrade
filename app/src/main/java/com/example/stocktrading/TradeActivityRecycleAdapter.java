@@ -1,6 +1,7 @@
 package com.example.stocktrading;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,16 @@ public class TradeActivityRecycleAdapter extends RecyclerView.Adapter<TradeActiv
 
         String ch = "+"+listinformations.get(position).change;
         holder.change.setText(ch);
-        holder.status.setText(listinformations.get(position).Status);
+        String status = listinformations.get(position).Status;
+
+        if(status.equalsIgnoreCase("BUY")){
+            holder.status.setText( listinformations.get(position).Status);
+            holder.status.setTextColor(Color.parseColor("#178E1B"));
+        }else{
+            holder.status.setText( listinformations.get(position).Status);
+            holder.status.setTextColor(Color.parseColor("#FF0000"));
+        }
+     //   holder.status.setText(listinformations.get(position).Status);
 
     }
 

@@ -28,7 +28,7 @@ public class StockFragment extends Fragment {
 
     View view;
     ArrayList<StockDatas> datalist = new ArrayList<StockDatas>();
-    StockDatas datastore;
+    StockDatas stockDatas;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,9 +75,9 @@ public class StockFragment extends Fragment {
 
                             JSONObject datas = arrays.getJSONObject(j);
 
-                            datastore = new StockDatas(datas.getString("ltp"), datas.getString("changePer"), datas.getString("change"), datas.getString("details"),datas.getString("symbolName"));
+                            stockDatas = new StockDatas(datas.getString("ltp"), datas.getString("changePer"), datas.getString("change"), datas.getString("details"),datas.getString("symbolName"));
 
-                            datalist.add(datastore);
+                            datalist.add(stockDatas);
                             addDatatoStockRecycle(view, datalist, getContext());
 
                         }
@@ -100,10 +100,10 @@ public class StockFragment extends Fragment {
     }
 
 
-    public void addDatatoStockRecycle(View view, ArrayList<StockDatas> datalists, Context context) {
+    public void addDatatoStockRecycle(View view, ArrayList<StockDatas> stocklists, Context context) {
 
-        RecyclerView recyclerView = view.findViewById(R.id.home_recycleView);
-        StockRecycleAdapter adapter = new StockRecycleAdapter(datalists, context);
+        RecyclerView recyclerView = view.findViewById(R.id.stock_recycleView);
+        StockRecycleAdapter adapter = new StockRecycleAdapter(stocklists, context);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 

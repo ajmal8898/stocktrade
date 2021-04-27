@@ -21,9 +21,9 @@ import java.util.ArrayList;
 public class StockRecycleAdapter extends RecyclerView.Adapter<StockRecycleAdapter.AddStock> {
     View view;
     Context context;
-    ArrayList<StockDatas> datalist = new ArrayList<StockDatas>();
+    ArrayList<StockDatas> stocklist = new ArrayList<StockDatas>();
     public StockRecycleAdapter(ArrayList<StockDatas> list, Context context) {
-        datalist = list;
+        stocklist = list;
         this.context = context;
     }
 
@@ -36,25 +36,25 @@ public class StockRecycleAdapter extends RecyclerView.Adapter<StockRecycleAdapte
 
     @Override
     public void onBindViewHolder(AddStock holder, int position) {
-        holder.comp_name.setText(datalist.get(position).company_name);
+        holder.comp_name.setText(stocklist.get(position).company_name);
 
-        String ltpc="₹"+(datalist.get(position).ltp);
+        String ltpc="₹"+(stocklist.get(position).ltp);
         holder.ltp.setText(ltpc);
 
-        String chngpr="("+(datalist.get(position).change_price)+"%)";
-        holder.change_per.setText(chngpr);
+        String changeper="("+(stocklist.get(position).change_percent)+"%)";
+        holder.change_per.setText(changeper);
 
-        String chng="+"+datalist.get(position).change;
+        String chng="+"+ stocklist.get(position).change;
         holder.change.setText(chng);
 
-        holder.symbol_name.setText(datalist.get(position).symbol);
+        holder.symbol_name.setText(stocklist.get(position).symbol);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(v.getContext());
                 view = LayoutInflater.from(v.getContext()).inflate(R.layout.activity_bootomsheet, null);
-                EditText Quantity = view.findViewById(R.id.quantity_bottomsheet);
+                EditText stockQuantity = view.findViewById(R.id.quantity_bottomsheet);
                 TextView ltp = view.findViewById(R.id.ltp_botomsheet);
                 TextView cmpny_name = view.findViewById(R.id.cmp_name);
                 ltp.setText(holder.ltp.getText().toString());
@@ -67,12 +67,11 @@ public class StockRecycleAdapter extends RecyclerView.Adapter<StockRecycleAdapte
                 buy.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        StockDatas model = datalist.get(position);
+                        StockDatas model = stocklist.get(position);
                         DatabaseStore database = new DatabaseStore(v.getContext());
-                        TextView quantity = view.findViewById(R.id.quantity_bottomsheet);
                         bottomSheetDialog.show();
 
-                        if (Quantity.getText().toString().isEmpty()) {
+                        if (stockQuantity.getText().toString().isEmpty()) {
                             Toast.makeText(v.getContext(), v.getResources().getString(R.string.blank), Toast.LENGTH_LONG).show();
 
                         } else {
@@ -81,13 +80,11 @@ public class StockRecycleAdapter extends RecyclerView.Adapter<StockRecycleAdapte
                             String change_percent = model.getChange_percent();
                             String ltp = model.getLtp();
                             String symbol = model.getSymbol();
-                            String quantities = quantity.getText().toString();
+                            String quantities = stockQuantity.getText().toString();
                             String status=v.getResources().getString(R.string.buy);
                             database.insertIntoTheDataBase(name, change, change_percent, ltp, symbol, quantities,status);
-                            TabLayout tabLayout = ((AppCompatActivity) view.getContext()).findViewById(R.id.tabs);
-                            Toast.makeText(v.getContext(), v.getResources().getString(R.string.success), Toast.LENGTH_LONG);
-                            tabLayout.getTabAt(1).select();
                             bottomSheetDialog.dismiss();
+                            Toast.makeText(view.getContext(), v.getResources().getString(R.string.success), Toast.LENGTH_LONG);
 
                         }
 
@@ -99,10 +96,8 @@ public class StockRecycleAdapter extends RecyclerView.Adapter<StockRecycleAdapte
                     @Override
                     public void onClick(View v) {
                         DatabaseStore database = new DatabaseStore(v.getContext());
-                        StockDatas stock = datalist.get(position);
-                        TextView quantity = view.findViewById(R.id.quantity_bottomsheet);
-
-                        if (Quantity.getText().toString().isEmpty()) {
+                        StockDatas stock = stocklist.get(position);
+                        if (stockQuantity.getText().toString().isEmpty()) {
                             Toast.makeText(v.getContext(),v.getResources().getString(R.string.blank), Toast.LENGTH_LONG).show();
 
                         } else {
@@ -111,11 +106,9 @@ public class StockRecycleAdapter extends RecyclerView.Adapter<StockRecycleAdapte
                             String change_percent = stock.getChange_percent();
                             String ltp = stock.getLtp();
                             String symbol = stock.getSymbol();
-                            String quantities = quantity.getText().toString();
+                            String quantities = stockQuantity.getText().toString();
                             String status=v.getResources().getString(R.string.sell);
                             database.insertIntoTheDataBase(name, change, change_percent, ltp, symbol, quantities,status);
-                            TabLayout tabLayout = ((AppCompatActivity) view.getContext()).findViewById(R.id.tabs);
-                            tabLayout.getTabAt(1).select();
                             bottomSheetDialog.dismiss();
 
                         }
@@ -131,7 +124,7 @@ public class StockRecycleAdapter extends RecyclerView.Adapter<StockRecycleAdapte
 
     @Override
     public int getItemCount() {
-        return datalist.size();
+        return stocklist.size();
     }
 
     public static class AddStock extends RecyclerView.ViewHolder {
